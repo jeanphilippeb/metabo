@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Métabo — Santé Métabolique</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#1D9E75;--teal-dark:#0F6E56;--teal-light:#C8E8DC;--teal-bg:#E8F7F2;
+  --amber:#E8B87A;--amber-dark:#B8844A;--amber-bg:#FEF3E2;
+  --ivory:#F5F2EC;--ivory-dark:#E2DFD8;
+  --night:#0B1520;--marine:#0F1B2D;--marine-card:#162235;
+  --text:#1A1A1A;--text-sec:#555550;--text-ter:#888780;--white:#FFFFFF;
+  --font:'Outfit',sans-serif;--r:12px;--r-sm:8px;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--ivory);color:var(--text);line-height:1.6}
+.page{display:none}.page.active{display:block}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(245,242,236,0.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(29,158,117,.12);height:64px;display:flex;align-items:center;padding:0 5%}
+.nav-inner{width:100%;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:17px;font-weight:500;color:var(--text);letter-spacing:.08em;text-decoration:none;cursor:pointer}
+.logo span{color:var(--teal)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:13.5px;color:var(--text-sec);text-decoration:none;cursor:pointer;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--teal)}
+.btn-nav{background:var(--teal);color:white;font-family:var(--font);font-size:13px;font-weight:500;padding:9px 20px;border-radius:6px;border:none;cursor:pointer;transition:background .2s}
+.btn-nav:hover{background:var(--teal-dark)}
+section{padding:96px 5%}
+.container{max-width:1200px;margin:0 auto}
+.s-label{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.s-title{font-size:clamp(28px,3vw,42px);font-weight:300;color:var(--text);line-height:1.2;letter-spacing:-.02em;margin-bottom:16px}
+.s-sub{font-size:15px;color:var(--text-sec);max-width:560px;line-height:1.75;margin-bottom:52px}
+.btn-p{background:var(--teal);color:white;font-family:var(--font);font-size:14px;font-weight:500;padding:13px 28px;border-radius:var(--r-sm);border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:background .2s}
+.btn-p:hover{background:var(--teal-dark)}
+.btn-pd{background:var(--teal);color:white;font-family:var(--font);font-size:14px;font-weight:500;padding:13px 28px;border-radius:var(--r-sm);border:none;cursor:pointer;display:inline-block;transition:background .2s}
+.btn-pd:hover{background:var(--teal-dark)}
+.btn-od{background:transparent;color:rgba(245,242,236,.75);font-family:var(--font);font-size:14px;padding:12px 28px;border-radius:var(--r-sm);border:1px solid rgba(245,242,236,.2);cursor:pointer;display:inline-block;transition:all .2s}
+.btn-od:hover{color:white;border-color:rgba(245,242,236,.5)}
+.btn-amber{background:var(--amber);color:var(--night);font-family:var(--font);font-size:14px;font-weight:500;padding:13px 28px;border-radius:var(--r-sm);border:none;cursor:pointer;display:inline-block;transition:background .2s}
+.btn-amber:hover{background:#d4a060}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;margin-top:14px}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+.badge.t{background:var(--teal-bg);color:var(--teal-dark)}
+.badge.a{background:var(--amber-bg);color:var(--amber-dark)}
+footer{background:var(--marine);padding:48px 5% 32px;border-top:2px solid var(--teal)}
+.fg{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.08)}
+.footer-brand p{font-size:13px;color:rgba(211,209,199,.5);line-height:1.7;margin-top:10px}
+.fc h4{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:16px}
+.fc ul{list-style:none}.fc li{margin-bottom:10px}
+.fc a{font-size:13px;color:rgba(211,209,199,.55);text-decoration:none;cursor:pointer;transition:color .2s}
+.fc a:hover{color:var(--teal-light)}
+.fb{max-width:1200px;margin:24px auto 0;display:flex;justify-content:space-between}
+.fb p{font-size:12px;color:rgba(211,209,199,.3)}
+/* HOME */
+.hero{background:var(--night);min-height:100vh;display:flex;align-items:center;padding:100px 5% 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--teal)}
+.hg{width:100%;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero-label{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:20px}
+.hero h1{font-size:clamp(36px,4vw,54px);font-weight:300;color:white;line-height:1.15;letter-spacing:-.02em;margin-bottom:24px}
+.hero h1 em{font-style:normal;color:var(--teal-light)}
+.hero>div p,.hg>div>p{font-size:15px;color:rgba(245,242,236,.62);line-height:1.75;margin-bottom:36px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sc{background:var(--marine-card);border:1px solid rgba(29,158,117,.15);border-radius:var(--r);padding:22px 18px;position:relative;overflow:hidden}
+.sc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.sc.t::before{background:var(--teal)}.sc.a::before{background:var(--amber)}
+.sv{font-size:30px;font-weight:300;line-height:1;margin-bottom:6px}
+.sc.t .sv{color:var(--teal)}.sc.a .sv{color:var(--amber)}
+.sl{font-size:11.5px;color:rgba(211,209,199,.65);line-height:1.45}
+.problem{background:var(--white)}
+.kg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:44px}
+.kpi{background:var(--ivory);border:1px solid var(--ivory-dark);border-radius:var(--r);padding:22px 18px;position:relative}
+.kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--teal);border-radius:var(--r) var(--r) 0 0}
+.kpi.a::after{background:var(--amber)}
+.kn{font-size:26px;font-weight:300;color:var(--teal);line-height:1;margin-bottom:8px}
+.kpi.a .kn{color:var(--amber-dark)}
+.kl{font-size:12px;color:var(--text-ter);line-height:1.5}
+.qb{background:var(--night);border-radius:var(--r);padding:28px 32px;border-left:4px solid var(--amber);margin-bottom:28px}
+.qb p{font-size:16px;font-weight:300;color:white;font-style:italic;line-height:1.65}
+.tc2{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.tc2 p{font-size:14px;color:var(--text-sec);line-height:1.75}
+.sol{background:var(--ivory)}
+.ps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.pi{background:var(--white);border-radius:var(--r);padding:26px 22px;border:1px solid var(--ivory-dark);position:relative;overflow:hidden}
+.pi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.pi.t::before{background:var(--teal)}.pi.a::before{background:var(--amber)}
+.pi h3{font-size:14px;font-weight:500;color:var(--text);margin-bottom:10px}
+.pi p{font-size:13px;color:var(--text-sec);line-height:1.65}
+.tims{background:var(--white)}
+.tcs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.tci{background:var(--ivory);border-radius:var(--r);padding:30px 22px;border:1px solid var(--ivory-dark)}
+.tcn{font-size:44px;font-weight:300;line-height:1;margin-bottom:14px}
+.tci:nth-child(1) .tcn{color:var(--teal)}.tci:nth-child(2) .tcn{color:var(--amber-dark)}.tci:nth-child(3) .tcn{color:var(--teal)}
+.tci h3{font-size:14px;font-weight:500;color:var(--text);margin-bottom:10px}
+.tci p{font-size:13px;color:var(--text-sec);line-height:1.65}
+.pilots{background:var(--ivory)}
+.psg{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.pil{background:var(--white);border-radius:var(--r);padding:32px 28px;border:1px solid var(--ivory-dark);position:relative;overflow:hidden}
+.pil::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px}
+.pil.re::before{background:var(--teal)}.pil.th::before{background:var(--amber)}
+.ptag{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.pil.re .ptag{color:var(--teal)}.pil.th .ptag{color:var(--amber-dark)}
+.pil h3{font-size:20px;font-weight:300;color:var(--text);margin-bottom:18px}
+.pil ul{list-style:none}
+.pil li{font-size:13px;color:var(--text-sec);padding:7px 0;border-bottom:1px solid var(--ivory-dark);display:flex;gap:10px;line-height:1.5}
+.pil li:last-child{border-bottom:none}
+.pil li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--teal);margin-top:7px;flex-shrink:0}
+.pil.th li::before{background:var(--amber)}
+.ctad{background:var(--night);text-align:center;padding:96px 5%;position:relative}
+.ctad::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--teal)}
+.ctad h2{font-size:clamp(26px,3vw,42px);font-weight:300;color:white;line-height:1.2;letter-spacing:-.02em;margin-bottom:16px}
+.ctad h2 em{font-style:normal;color:var(--teal-light)}
+.ctad p{font-size:15px;color:rgba(245,242,236,.58);margin-bottom:36px;max-width:500px;margin-left:auto;margin-right:auto}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+/* PARCOURS */
+.ph{background:var(--teal-dark);padding:140px 5% 80px;position:relative;overflow:hidden}
+.ph::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--teal-light)}
+.ph h1{font-size:clamp(32px,3.5vw,50px);font-weight:300;color:white;line-height:1.2;letter-spacing:-.02em;margin-bottom:20px}
+.ph p{font-size:15px;color:rgba(200,232,220,.8);line-height:1.75;margin-bottom:28px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;background:rgba(200,232,220,.15);color:var(--teal-light);border:1px solid rgba(200,232,220,.25)}
+.pm{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mc{background:rgba(255,255,255,.08);border:1px solid rgba(200,232,220,.2);border-radius:var(--r);padding:20px 18px}
+.mv{font-size:28px;font-weight:300;color:white;line-height:1;margin-bottom:6px}
+.ml{font-size:12px;color:rgba(200,232,220,.65);line-height:1.4}
+.etapes{background:var(--white)}
+.tl{position:relative;padding-left:40px}
+.tl::before{content:'';position:absolute;left:14px;top:8px;bottom:8px;width:2px;background:var(--ivory-dark)}
+.et{position:relative;margin-bottom:36px}
+.et:last-child{margin-bottom:0}
+.ed{position:absolute;left:-40px;top:4px;width:28px;height:28px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:white;border:3px solid var(--white)}
+.ep{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.et h3{font-size:17px;font-weight:500;color:var(--text);margin-bottom:8px}
+.et p{font-size:14px;color:var(--text-sec);line-height:1.7;margin-bottom:12px}
+.etags{display:flex;gap:8px;flex-wrap:wrap}
+.etag{font-size:11px;padding:3px 10px;border-radius:4px;background:var(--teal-bg);color:var(--teal-dark)}
+.etag.a{background:var(--amber-bg);color:var(--amber-dark)}
+.profils{background:var(--ivory)}
+.prg{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.prf{background:var(--white);border-radius:var(--r);padding:26px 22px;border:1px solid var(--ivory-dark)}
+.prfi{width:44px;height:44px;border-radius:50%;background:var(--teal-bg);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px}
+.prf h3{font-size:14px;font-weight:500;color:var(--text);margin-bottom:8px}
+.prf p{font-size:13px;color:var(--text-sec);line-height:1.65;margin-bottom:12px}
+.prtags{display:flex;gap:6px;flex-wrap:wrap}
+.prtag{font-size:10px;font-weight:500;padding:3px 8px;border-radius:4px;background:var(--ivory);color:var(--text-ter);border:1px solid var(--ivory-dark)}
+.outs{background:var(--night);padding:80px 5%}
+.og{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.oc{background:var(--marine-card);border:1px solid rgba(29,158,117,.15);border-radius:var(--r);padding:24px 20px}
+.ov{font-size:32px;font-weight:300;color:var(--teal);line-height:1;margin-bottom:8px}
+.ol{font-size:12px;color:rgba(211,209,199,.65);line-height:1.45}
+.kn2{margin-top:24px;background:var(--marine-card);border-radius:var(--r);padding:20px 24px;border-left:3px solid var(--amber)}
+.kn2 p{font-size:13px;color:rgba(211,209,199,.65);line-height:1.6}
+.kn2 strong{color:var(--amber);font-weight:500}
+/* ABOUT */
+.abh{background:var(--night);padding:140px 5% 80px;position:relative}
+.abh::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--teal)}
+.abh h1{font-size:clamp(32px,3.5vw,50px);font-weight:300;color:white;line-height:1.2;letter-spacing:-.02em;margin-bottom:20px;max-width:700px}
+.abh p{font-size:15px;color:rgba(245,242,236,.62);line-height:1.75;max-width:600px}
+.vis{background:var(--white)}
+.vg{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.vt h2{font-size:clamp(24px,2.5vw,36px);font-weight:300;color:var(--text);line-height:1.25;letter-spacing:-.02em;margin-bottom:20px}
+.vt p{font-size:14px;color:var(--text-sec);line-height:1.75;margin-bottom:16px}
+.vv{display:flex;flex-direction:column;gap:14px}
+.vval{background:var(--ivory);border-radius:var(--r);padding:18px 20px;border-left:3px solid var(--teal)}
+.vval.a{border-left-color:var(--amber)}
+.vval h4{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px}
+.vval p{font-size:12px;color:var(--text-sec);line-height:1.55}
+.founds{background:var(--ivory)}
+.fog{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:40px}
+.fo{background:var(--white);border-radius:var(--r);padding:32px 28px;border:1px solid var(--ivory-dark)}
+.foa{width:52px;height:52px;border-radius:50%;background:var(--teal-bg);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:500;color:var(--teal-dark);margin-bottom:16px}
+.fo h3{font-size:17px;font-weight:500;color:var(--text);margin-bottom:4px}
+.for{font-size:12px;color:var(--teal);font-weight:500;margin-bottom:14px}
+.fo p{font-size:13px;color:var(--text-sec);line-height:1.7}
+.rb{background:var(--night);border-radius:var(--r);padding:28px 32px;border-left:4px solid var(--amber);display:flex;align-items:center;justify-content:space-between;gap:24px}
+.rb h3{font-size:15px;font-weight:500;color:white;margin-bottom:6px}
+.rb p{font-size:13px;color:rgba(245,242,236,.6);line-height:1.6}
+.adv{background:var(--white)}
+.ag{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.ad{background:var(--ivory);border-radius:var(--r);padding:24px 20px;border:1px solid var(--ivory-dark)}
+.adp{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;color:var(--teal)}
+.ad:nth-child(3) .adp,.ad:nth-child(4) .adp{color:var(--amber-dark)}
+.ad h3{font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px}
+.ads{font-size:11px;color:var(--teal);font-weight:400;margin-bottom:10px;font-style:italic}
+.ad:nth-child(3) .ads,.ad:nth-child(4) .ads{color:var(--amber-dark)}
+.ad p{font-size:12px;color:var(--text-sec);line-height:1.6}
+.alls{background:var(--ivory)}
+.all{background:var(--white);border-radius:var(--r);padding:28px 28px;border:1px solid var(--ivory-dark);border-left:4px solid var(--amber)}
+.all h3{font-size:16px;font-weight:500;color:var(--text);margin-bottom:4px}
+.allr{font-size:12px;color:var(--amber-dark);font-weight:500;margin-bottom:12px}
+.all p{font-size:14px;color:var(--text-sec);line-height:1.7}
+/* CONTACT */
+.coh{background:var(--night);padding:140px 5% 80px;position:relative}
+.coh::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--teal)}
+.coh h1{font-size:clamp(32px,3.5vw,50px);font-weight:300;color:white;line-height:1.2;letter-spacing:-.02em;margin-bottom:16px;max-width:680px}
+.coh p{font-size:15px;color:rgba(245,242,236,.6);line-height:1.75;max-width:560px}
+.com{background:var(--white)}
+.cog{display:grid;grid-template-columns:1fr 1.2fr;gap:64px}
+.cps{display:flex;flex-direction:column;gap:18px}
+.cp{background:var(--ivory);border-radius:var(--r);padding:22px 20px;border-left:3px solid var(--teal)}
+.cp.a{border-left-color:var(--amber)}
+.cp h3{font-size:13px;font-weight:500;color:var(--text);margin-bottom:8px}
+.cp p{font-size:12px;color:var(--text-sec);line-height:1.6}
+.fs h2{font-size:22px;font-weight:400;color:var(--text);margin-bottom:28px}
+.fg2{margin-bottom:18px}
+.fg2 label{display:block;font-size:12px;font-weight:500;color:var(--text-sec);margin-bottom:6px;letter-spacing:.04em}
+.fg2 input,.fg2 select,.fg2 textarea{width:100%;font-family:var(--font);font-size:14px;color:var(--text);background:var(--ivory);border:1px solid var(--ivory-dark);border-radius:var(--r-sm);padding:11px 14px;outline:none;transition:border-color .2s}
+.fg2 input:focus,.fg2 select:focus,.fg2 textarea:focus{border-color:var(--teal)}
+.fg2 textarea{resize:vertical;min-height:100px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.locs{background:var(--ivory)}
+.log{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.loc{background:var(--white);border-radius:var(--r);padding:28px 24px;border:1px solid var(--ivory-dark)}
+.loc h3{font-size:16px;font-weight:500;color:var(--text);margin-bottom:4px}
+.lct{font-size:11px;font-weight:500;margin-bottom:14px;letter-spacing:.06em;text-transform:uppercase}
+.loc p{font-size:13px;color:var(--text-sec);line-height:1.65}
+.ld{margin-top:14px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--teal-dark);font-weight:500;text-decoration:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.hero h1,.hero>div>p,.hero-ctas,.hs{animation:fadeUp .6s ease both}
+.hero>div>p{animation-delay:.1s}.hero-ctas{animation-delay:.2s}.hs{animation-delay:.15s}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="logo" onclick="go('home')">M<span>É</span>TABO</a>
+    <ul class="nav-links">
+      <li><a onclick="go('parcours')" id="np">Parcours patient</a></li>
+      <li><a onclick="go('about')" id="na">À propos</a></li>
+      <li><a onclick="go('home')" id="nh">Actualité</a></li>
+      <li><a onclick="go('contact')" id="nc">Contact</a></li>
+    </ul>
+    <button class="btn-nav" onclick="go('contact')">Prendre contact</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="pg-home" class="page active">
+<section class="hero">
+  <div class="hg">
+    <div>
+      <div class="hero-label">Réseau de centres hybrides · France</div>
+      <h1>La santé métabolique,<br><em>enfin structurée</em><br>en proximité.</h1>
+      <p>Métabo développe un réseau de centres de santé hybrides pour accompagner les 10 millions de Français vivant avec surpoids, diabète ou risque cardiovasculaire — un suivi sérieux, sans jugement, qui dure.</p>
+      <div class="hero-ctas">
+        <button class="btn-pd" onclick="go('parcours')">Notre approche</button>
+        <button class="btn-od" onclick="go('contact')">Nous contacter</button>
+      </div>
+    </div>
+    <div class="hs">
+      <div class="sc t"><div class="sv">10 M</div><div class="sl">adultes en obésité sans parcours structuré</div></div>
+      <div class="sc a"><div class="sv">12,7 Md€</div><div class="sl">coût annuel pour l'Assurance Maladie</div></div>
+      <div class="sc t"><div class="sv">–15,9 %</div><div class="sl">perte de poids avec le modèle hybride</div></div>
+      <div class="sc a"><div class="sv">30 juin</div><div class="sl">date limite appels ARS PCR obésité 2026</div></div>
+    </div>
+  </div>
+</section>
+<section class="problem">
+  <div class="container">
+    <div class="s-label">Le problème</div>
+    <h2 class="s-title">Un tsunami sanitaire sans infrastructure de parcours</h2>
+    <div class="kg">
+      <div class="kpi"><div class="kn">1 sur 2</div><div class="kl">adultes en surcharge pondérale en France</div></div>
+      <div class="kpi a"><div class="kn">68 000</div><div class="kl">décès par an liés à l'obésité</div></div>
+      <div class="kpi"><div class="kn">24 %</div><div class="kl">seulement ont un plan de soins structuré</div></div>
+      <div class="kpi a"><div class="kn">20 000</div><div class="kl">patients/an dans les 42 CSO saturés</div></div>
+    </div>
+    <div class="qb"><p>Ce qui manque n'est ni les médicaments ni les soignants isolés — c'est l'infrastructure de parcours.</p></div>
+    <div class="tc2">
+      <p>En ville, seulement 24 % des patients ont un plan de soins structuré. Moins de 15 % bénéficient d'un soutien psychologique régulier. Des millions ont arrêté de consulter par honte ou découragement.</p>
+      <p>Le patient obèse avec diabète et hypertension tourne entre trois spécialistes qui ne se parlent pas. Le MG, débordé et non outillé, ne peut assurer seul un suivi au long cours.</p>
+    </div>
+  </div>
+</section>
+<section class="sol">
+  <div class="container">
+    <div class="s-label">Notre approche</div>
+    <h2 class="s-title">Des cliniques hybrides, non stigmatisantes</h2>
+    <p class="s-sub">Un réseau de centres de proximité, hybrides et connectés, pour accompagner sur la durée les patients cardiométaboliques.</p>
+    <div class="ps">
+      <div class="pi t"><h3>Réseau reproductible</h3><p>Centres propres, partenariats MG, licences. Un modèle scalable, pas un centre unique.</p></div>
+      <div class="pi t"><h3>Hybride présentiel + digital</h3><p>Présentiel pour la confiance. Digital pour l'engagement sur 12–18 mois. Le modèle qui surpasse les deux extrêmes.</p></div>
+      <div class="pi a"><h3>Tech invisible</h3><p>La technologie décuple la capacité de l'équipe — elle n'est jamais mise en avant auprès des patients.</p></div>
+      <div class="pi t"><h3>Non stigmatisant</h3><p>Marque, architecture et discours conçus pour ramener dans le soin des patients qui avaient arrêté.</p></div>
+      <div class="pi t"><h3>Pluridisciplinaire</h3><p>MG, IDE coordinateur, diét., psy, APA. Spécialistes en vacations. Registre d'outcomes dès J1.</p></div>
+      <div class="pi a"><h3>Données d'impact</h3><p>Δ poids, Δ HbA1c, Δ TA, hospitalisations évitées. Valorisable auprès des ARS et payeurs.</p></div>
+    </div>
+  </div>
+</section>
+<section class="tims">
+  <div class="container">
+    <div class="s-label">Pourquoi maintenant</div>
+    <h2 class="s-title">Fenêtre historique 2026</h2>
+    <p class="s-sub">Trois catalyseurs simultanés créent une opportunité unique pour les premiers entrants.</p>
+    <div class="tcs">
+      <div class="tci"><div class="tcn">01</div><h3>PCR obésité — c'est signé</h3><p>Arrêté du 26 fév. 2026 : forfait 1 126–1 769 €/patient/an + majoration DOM +20 %. Appels ARS avant le 30 juin.</p><div class="badge t">ARPU jusqu'à 3 500 €/an</div></div>
+      <div class="tci"><div class="tcn">02</div><h3>Rupture thérapeutique GLP-1</h3><p>Wegovy, Mounjaro : 15–25 % de perte de poids. Remboursement fin 2026 avec suivi pluridisciplinaire obligatoire.</p><div class="badge a">Demande captive structurelle</div></div>
+      <div class="tci"><div class="tcn">03</div><h3>Feuille de route & PRNDO</h3><p>Stratégie nationale 2026–2030. L'ARS Réunion cherche activement des modèles innovants de proximité.</p><div class="badge t">Alignement ARS confirmé</div></div>
+    </div>
+  </div>
+</section>
+<section class="pilots">
+  <div class="container">
+    <div class="s-label">Territoires pilotes</div>
+    <h2 class="s-title">Double preuve de concept dès l'an 1</h2>
+    <p class="s-sub">Un pilote DOM extrême + un pilote ville industrielle métropolitaine.</p>
+    <div class="psg">
+      <div class="pil re"><div class="ptag">Priorité 1 · DOM</div><h3>La Réunion</h3><ul><li>47 % en surcharge, 13,6 % de diabète vs 5–6 % métropole</li><li>PRNDO 2025–2028 : l'ARS cherche des modèles innovants</li><li>Majoration DOM +20 % sur tous les forfaits PCR</li><li>FEDER, LODEOM, CII/CIR, JEI — effet de levier maximum</li></ul></div>
+      <div class="pil th"><div class="ptag">Priorité 2 · Grand Est</div><h3>Thionville</h3><ul><li>Grand Est : 4e région la plus touchée (19,2 % d'obésité)</li><li>Pierre Cuny — maire de Thionville et médecin endocrinologue</li><li>Double légitimité médicale + politique : ARS, hôpital, CPTS</li><li>Modèle transposable à toutes les villes industrielles françaises</li></ul></div>
+    </div>
+  </div>
+</section>
+<section class="ctad">
+  <div class="container">
+    <div class="s-label" style="color:var(--teal)">Rejoindre le projet</div>
+    <h2>Médecin, institutionnel<br>ou partenaire potentiel ?</h2>
+    <p>Nous cherchons un co-fondateur médical à temps partiel, des alliés ARS et des partenaires mutuelles.</p>
+    <div class="cta-btns"><button class="btn-pd" onclick="go('contact')">Prendre contact</button><button class="btn-amber" onclick="go('about')">En savoir plus</button></div>
+  </div>
+</section>
+<footer><div class="fg"><div class="footer-brand"><a class="logo" onclick="go('home')" style="color:white">M<span style="color:var(--teal)">É</span>TABO</a><p>Le réseau français de cliniques hybrides de santé métabolique.</p></div><div class="fc"><h4>Projet</h4><ul><li><a onclick="go('parcours')">Parcours patient</a></li><li><a onclick="go('home')">Territoires pilotes</a></li></ul></div><div class="fc"><h4>À propos</h4><ul><li><a onclick="go('about')">L'équipe</a></li><li><a onclick="go('about')">Notre vision</a></li></ul></div><div class="fc"><h4>Contact</h4><ul><li><a href="mailto:jean.philippe.boul@gmail.com">jean.philippe.boul@gmail.com</a></li></ul></div></div><div class="fb"><p>© 2026 Métabo · Confidentiel</p><p>Mars 2026 · Phase pré-validation</p></div></footer>
+</div>
+
+<!-- PARCOURS -->
+<div id="pg-parcours" class="page">
+<section class="ph">
+  <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+    <div>
+      <div class="s-label" style="color:var(--teal-light)">Parcours patient</div>
+      <h1>Un suivi médical sérieux,<br>sans jugement, qui dure.</h1>
+      <p>De la première consultation au suivi au long cours — un parcours structuré de 12 à 18 mois.</p>
+      <div class="chips"><span class="chip">Obésité / surpoids</span><span class="chip">Diabète type 2</span><span class="chip">HTA</span><span class="chip">Risque cardiovasculaire</span></div>
+    </div>
+    <div class="pm">
+      <div class="mc"><div class="mv">12–18</div><div class="ml">mois de suivi minimum</div></div>
+      <div class="mc"><div class="mv">–15,9 %</div><div class="ml">perte de poids moyenne</div></div>
+      <div class="mc"><div class="mv">97 %</div><div class="ml">maintien des résultats à 12 mois</div></div>
+      <div class="mc"><div class="mv">5+</div><div class="ml">professionnels coordonnés</div></div>
+    </div>
+  </div>
+</section>
+<section class="etapes">
+  <div class="container">
+    <div class="s-label">Les étapes</div>
+    <h2 class="s-title">Votre parcours, étape par étape</h2>
+    <p class="s-sub">Un suivi progressif et personnalisé, de l'évaluation initiale à la stabilisation au long cours.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px">
+      <div class="tl">
+        <div class="et"><div class="ed">1</div><div class="ep">Mois 0</div><h3>Bilan initial complet</h3><p>Consultation médicale approfondie, bilan biologique (HbA1c, lipides, fonction rénale), évaluation cardiovasculaire, bilan nutritionnel et psychologique.</p><div class="etags"><span class="etag">MG</span><span class="etag">Biologie</span><span class="etag">ECG</span><span class="etag a">Durée : 2h</span></div></div>
+        <div class="et"><div class="ed">2</div><div class="ep">Mois 1</div><h3>Plan personnalisé</h3><p>Définition des objectifs thérapeutiques, prescription adaptée (GLP-1 si indiqué), plan nutritionnel individualisé, introduction de l'activité physique adaptée.</p><div class="etags"><span class="etag">Diététicien</span><span class="etag">APA</span><span class="etag a">Personnalisé</span></div></div>
+        <div class="et"><div class="ed">3</div><div class="ep">Mois 1–6</div><h3>Phase intensive</h3><p>Consultations régulières, suivi digital entre visites, ajustements thérapeutiques, séances ETP, soutien psychologique si besoin.</p><div class="etags"><span class="etag">Suivi mensuel</span><span class="etag">ETP</span></div></div>
+      </div>
+      <div class="tl">
+        <div class="et"><div class="ed">4</div><div class="ep">Mois 6</div><h3>Bilan intermédiaire</h3><p>Évaluation des résultats (poids, HbA1c, TA, LDL), ajustement du plan, bilan psychologique, révision des objectifs à 12 mois.</p><div class="etags"><span class="etag a">Bilan complet</span><span class="etag">Réajustement</span></div></div>
+        <div class="et"><div class="ed">5</div><div class="ep">Mois 6–18</div><h3>Phase de consolidation</h3><p>Espacement progressif des visites, renforcement des habitudes, télésurveillance IC/DT2 si indiquée.</p><div class="etags"><span class="etag">Télésurveillance</span><span class="etag">Consolidation</span></div></div>
+        <div class="et"><div class="ed">6</div><div class="ep">Mois 18+</div><h3>Suivi au long cours</h3><p>Passage en suivi de maintenance avec votre MG, accès à la plateforme digitale, consultations ponctuelles selon besoin.</p><div class="etags"><span class="etag a">Long terme</span><span class="etag">MG partenaire</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="profils">
+  <div class="container">
+    <div class="s-label">Pour qui</div>
+    <h2 class="s-title">Nous accompagnons tous les profils</h2>
+    <p class="s-sub">Des soins primaires non stigmatisants — ouverts à tous, pensés pour ceux qui avaient renoncé.</p>
+    <div class="prg">
+      <div class="prf"><div class="prfi">◎</div><h3>Surpoids ou obésité avec risque</h3><p>IMC ≥ 27 avec au moins un facteur de risque (HTA, DT2, dyslipidémie) ou IMC ≥ 30. Parcours PCR éligible.</p><div class="prtags"><span class="prtag">PCR obésité</span><span class="prtag">GLP-1 si éligible</span></div></div>
+      <div class="prf"><div class="prfi">◈</div><h3>Diabète type 2 ou prédiabète</h3><p>Optimisation glycémique, réduction des doses médicamenteuses, prévention des complications rénales et cardiovasculaires.</p><div class="prtags"><span class="prtag">Télésurveillance DT2</span><span class="prtag">iSGLT2</span></div></div>
+      <div class="prf"><div class="prfi">✦</div><h3>Risque cardiovasculaire élevé</h3><p>HTA, dyslipidémie, antécédent CV, insuffisance cardiaque. Suivi intégré cardiométabolique avec coordination spécialiste.</p><div class="prtags"><span class="prtag">Télésurveillance IC</span><span class="prtag">Coordination cardio</span></div></div>
+    </div>
+  </div>
+</section>
+<section class="outs">
+  <div class="container">
+    <div class="s-label">Résultats démontrés</div>
+    <h2 class="s-title" style="color:white">Ce que le modèle hybride permet</h2>
+    <p class="s-sub">Données issues de Knownwell (US), rapport février 2026, 1 807 patients.</p>
+    <div class="og">
+      <div class="oc"><div class="ov">–15,9 %</div><div class="ol">perte de poids moyenne sur le programme</div></div>
+      <div class="oc"><div class="ov">97 %</div><div class="ol">maintien des résultats à 12 mois</div></div>
+      <div class="oc"><div class="ov">30–50</div><div class="ol">hospitalisations évitées par centre et par an</div></div>
+      <div class="oc"><div class="ov">150–300 k€</div><div class="ol">économies estimées pour l'Assurance Maladie</div></div>
+    </div>
+    <div class="kn2"><p><strong>Méthodologie :</strong> données issues du rapport Knownwell de février 2026, sur 1 807 patients. Métabo s'inscrit dans la même logique — les résultats français seront mesurés et publiés dès la phase pilote.</p></div>
+  </div>
+</section>
+<section class="ctad">
+  <div class="container">
+    <div class="s-label" style="color:var(--teal)">Vous êtes patient</div>
+    <h2>Prêt à commencer<br><em>votre parcours ?</em></h2>
+    <p>Notre premier centre ouvre à La Réunion courant 2026. Inscrivez-vous pour être informé en priorité.</p>
+    <div class="cta-btns"><button class="btn-pd" onclick="go('contact')">M'inscrire sur la liste</button><button class="btn-od" onclick="go('about')">En savoir plus</button></div>
+  </div>
+</section>
+<footer><div class="fg"><div class="footer-brand"><a class="logo" onclick="go('home')" style="color:white">M<span style="color:var(--teal)">É</span>TABO</a><p>Le réseau français de cliniques hybrides de santé métabolique.</p></div><div class="fc"><h4>Projet</h4><ul><li><a onclick="go('home')">Accueil</a></li><li><a onclick="go('about')">À propos</a></li></ul></div><div class="fc"><h4>Contact</h4><ul><li><a href="mailto:jean.philippe.boul@gmail.com">jean.philippe.boul@gmail.com</a></li></ul></div><div class="fc"></div></div><div class="fb"><p>© 2026 Métabo · Confidentiel</p><p>Mars 2026</p></div></footer>
+</div>
+
+<!-- ABOUT -->
+<div id="pg-about" class="page">
+<section class="abh">
+  <div class="container">
+    <div class="s-label" style="color:var(--teal)">À propos</div>
+    <h1>Construire l'infrastructure manquante de la santé métabolique française.</h1>
+    <p>Métabo est un projet de co-fondation en phase de pré-validation. Nous cherchons les bons partenaires pour lancer les deux premiers centres pilotes en 2026.</p>
+  </div>
+</section>
+<section class="vis">
+  <div class="container">
+    <div class="vg">
+      <div class="vt">
+        <h2>Notre vision pour la santé métabolique en France</h2>
+        <p>Le mouvement mondial des cliniques hybrides cardiométaboliques (Knownwell, Ilant Health, Twin Health) n'a pas encore d'équivalent en France. Les conditions réglementaires françaises créent pourtant un avantage structurel unique pour un acteur de proximité ancré dans le système public.</p>
+        <p>Métabo est l'adaptation territoriale et publique de ce mouvement : des centres physiques, tech-enabled, dans le système Sécu/ARS, avec une marque non stigmatisante.</p>
+      </div>
+      <div class="vv">
+        <div class="vval"><h4>Non stigmatisant avant tout</h4><p>La stigmatisation est la première barrière aux soins. Chaque décision est prise pour éliminer cette barrière.</p></div>
+        <div class="vval"><h4>Médical d'abord, tech ensuite</h4><p>La technologie est un exosquelette qui décuple l'équipe. Elle ne se voit jamais, ne remplace rien.</p></div>
+        <div class="vval a"><h4>Données d'impact dès J1</h4><p>Registre d'outcomes structuré dès le premier patient — carburant de la crédibilité auprès des ARS et payeurs.</p></div>
+        <div class="vval"><h4>Autofinancé, ancré dans le public</h4><p>Modèle non-VC combinant forfaits publics, actes classiques, B2B mutuelles et aides DOM.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="founds">
+  <div class="container">
+    <div class="s-label">L'équipe fondatrice</div>
+    <h2 class="s-title">Co-fondateurs</h2>
+    <div class="fog">
+      <div class="fo"><div class="foa">JP</div><h3>Jean-Philippe Boul</h3><div class="for">Co-fondateur · Stratégie & Opérations</div><p>Entrepreneur à La Réunion. Porte le projet Métabo depuis la phase de conception et pilote la stratégie de déploiement territorial.</p></div>
+      <div class="fo" style="background:var(--ivory);border-style:dashed"><div class="foa" style="background:var(--amber-bg);color:var(--amber-dark)">?</div><h3>Co-fondateur médical</h3><div class="for" style="color:var(--amber-dark)">En cours de recrutement — priorité absolue</div><p>Médecin endocrinologue ou spécialiste obésité/cardiométabolique, temps partiel. Apporte la légitimité clinique et les liens avec les réseaux ARS et CSO.</p></div>
+    </div>
+    <div class="rb"><div><h3>Nous cherchons notre co-fondateur médical</h3><p>Médecin spécialisé en obésité, endocrinologie ou cardiologie métabolique. Temps partiel. France métropolitaine ou DOM.</p></div><button class="btn-amber" onclick="go('contact')" style="white-space:nowrap;flex-shrink:0">Candidater</button></div>
+  </div>
+</section>
+<section class="adv">
+  <div class="container">
+    <div class="s-label">Comité médical & scientifique cible</div>
+    <h2 class="s-title">Des références nationales</h2>
+    <p class="s-sub">Ces profils sont nos cibles prioritaires pour le comité médical.</p>
+    <div class="ag">
+      <div class="ad"><div class="adp">Priorité 1</div><h3>Emmanuel Disse</h3><div class="ads">Obésité · GLP-1 · Parcours</div><p>Figure nationale en obésité/cardiométabolique. Crédibilité ARS, payeurs et industriels. Réseau CSO.</p></div>
+      <div class="ad"><div class="adp">Priorité 2</div><h3>Rudy Caillet</h3><div class="ads">Innovation · Tech · Terrain</div><p>Vision systémique, sensible à la tech et à l'expérience patient. Interface terrain/institutions.</p></div>
+      <div class="ad"><div class="adp">Priorité 3</div><h3>Judith Aron-Wisnewsky</h3><div class="ads">Recherche · Microbiote</div><p>Recherche de pointe. Légitimité académique et publications.</p></div>
+      <div class="ad"><div class="adp">Priorité 4</div><h3>David Jacobi</h3><div class="ads">Essais · Télémédecine</div><p>Essais innovants, télémédecine, visibilité européenne.</p></div>
+    </div>
+  </div>
+</section>
+<section class="alls">
+  <div class="container">
+    <div class="s-label">Allié institutionnel clé</div>
+    <h2 class="s-title" style="max-width:500px">Un soutien politique et médical rare</h2>
+    <div class="all"><h3>Pierre Cuny</h3><div class="allr">Maire de Thionville · Médecin endocrinologue</div><p>Pierre Cuny cumule une double légitimité unique : médecin endocrinologue et premier magistrat de Thionville. Son soutien ouvre des portes directes vers l'ARS Grand Est, les structures hospitalières, les CPTS et les dossiers de financement publics.</p></div>
+  </div>
+</section>
+<section class="ctad">
+  <div class="container">
+    <div class="s-label" style="color:var(--teal)">Rejoindre l'aventure</div>
+    <h2>Construire ensemble<br><em>le réseau de demain</em></h2>
+    <p>Co-fondateur médical, partenaire ARS, mutuelle ou investisseur — contactez-nous.</p>
+    <div class="cta-btns"><button class="btn-pd" onclick="go('contact')">Prendre contact</button></div>
+  </div>
+</section>
+<footer><div class="fg"><div class="footer-brand"><a class="logo" onclick="go('home')" style="color:white">M<span style="color:var(--teal)">É</span>TABO</a><p>Le réseau français de cliniques hybrides de santé métabolique.</p></div><div class="fc"><h4>Projet</h4><ul><li><a onclick="go('parcours')">Parcours patient</a></li><li><a onclick="go('home')">Accueil</a></li></ul></div><div class="fc"><h4>Contact</h4><ul><li><a href="mailto:jean.philippe.boul@gmail.com">jean.philippe.boul@gmail.com</a></li></ul></div><div class="fc"></div></div><div class="fb"><p>© 2026 Métabo · Confidentiel</p><p>Mars 2026</p></div></footer>
+</div>
+
+<!-- CONTACT -->
+<div id="pg-contact" class="page">
+<section class="coh">
+  <div class="container">
+    <div class="s-label" style="color:var(--teal)">Contact</div>
+    <h1>Parlons du projet Métabo.</h1>
+    <p>Médecin, institutionnel, mutuelle ou simplement curieux — nous sommes ouverts à toutes les conversations sérieuses.</p>
+  </div>
+</section>
+<section class="com">
+  <div class="container">
+    <div class="cog">
+      <div>
+        <div class="s-label">Vous êtes...</div>
+        <h2 class="s-title" style="font-size:26px">À qui s'adresse ce projet</h2>
+        <div class="cps">
+          <div class="cp"><h3>Médecin — co-fondateur potentiel</h3><p>Endocrinologue, spécialiste obésité ou cardiologie métabolique. Temps partiel. Vous voulez construire quelque chose de différent.</p></div>
+          <div class="cp"><h3>Institutionnel / ARS</h3><p>Vous cherchez des modèles innovants de proximité pour le PCR obésité ou le PRNDO Réunion.</p></div>
+          <div class="cp a"><h3>Mutuelle / assureur</h3><p>Vous souhaitez réduire les coûts liés aux pathologies cardiométaboliques dans votre portefeuille.</p></div>
+          <div class="cp"><h3>Médecin généraliste partenaire</h3><p>Vous voulez mieux prendre en charge vos patients obèses/DT2 avec des outils adaptés.</p></div>
+          <div class="cp"><h3>Patient — liste d'attente</h3><p>Notre premier centre ouvre à La Réunion en 2026. Inscrivez-vous pour être contacté en priorité.</p></div>
+        </div>
+      </div>
+      <div class="fs">
+        <h2>Envoyer un message</h2>
+        <div class="fr"><div class="fg2"><label>Prénom</label><input type="text" placeholder="Jean-Philippe"></div><div class="fg2"><label>Nom</label><input type="text" placeholder="Boul"></div></div>
+        <div class="fg2"><label>Email</label><input type="email" placeholder="votre@email.com"></div>
+        <div class="fg2"><label>Vous êtes</label><select><option value="">Sélectionner...</option><option>Médecin — co-fondateur potentiel</option><option>Institutionnel / ARS</option><option>Mutuelle / assureur</option><option>Médecin généraliste partenaire</option><option>Patient — liste d'attente</option><option>Autre</option></select></div>
+        <div class="fg2"><label>Message</label><textarea placeholder="Décrivez brièvement votre intérêt pour le projet Métabo..."></textarea></div>
+        <button class="btn-p" style="width:100%">Envoyer le message</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="locs">
+  <div class="container">
+    <div class="s-label">Nos territoires</div>
+    <h2 class="s-title">Où nous sommes</h2>
+    <div class="log">
+      <div class="loc"><div class="lct" style="color:var(--teal)">Pilote prioritaire · DOM</div><h3>La Réunion</h3><p>Base principale du projet. Hotspot cardiométabolique français, aligné avec le PRNDO 2025–2028. Ouverture du premier centre prévue courant 2026.</p><a href="mailto:jean.philippe.boul@gmail.com" class="ld">jean.philippe.boul@gmail.com →</a></div>
+      <div class="loc"><div class="lct" style="color:var(--amber-dark)">Pilote métropole · Grand Est</div><h3>Thionville</h3><p>Deuxième territoire pilote en Grand Est, avec le soutien de Pierre Cuny (maire et médecin endocrinologue). Démarrage parallèle au pilote Réunion.</p><a href="mailto:jean.philippe.boul@gmail.com" class="ld">jean.philippe.boul@gmail.com →</a></div>
+    </div>
+  </div>
+</section>
+<footer><div class="fg"><div class="footer-brand"><a class="logo" onclick="go('home')" style="color:white">M<span style="color:var(--teal)">É</span>TABO</a><p>Le réseau français de cliniques hybrides de santé métabolique.</p></div><div class="fc"><h4>Projet</h4><ul><li><a onclick="go('parcours')">Parcours patient</a></li><li><a onclick="go('home')">Accueil</a></li></ul></div><div class="fc"><h4>À propos</h4><ul><li><a onclick="go('about')">L'équipe</a></li></ul></div><div class="fc"><h4>Contact</h4><ul><li><a href="mailto:jean.philippe.boul@gmail.com">jean.philippe.boul@gmail.com</a></li></ul></div></div><div class="fb"><p>© 2026 Métabo · Confidentiel</p><p>Mars 2026</p></div></footer>
+</div>
+
+<script>
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pg-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  ['home','parcours','about','contact'].forEach(n=>{
+    const el=document.getElementById('n'+n[0]);
+    if(el) el.classList.toggle('active',n===id);
+  });
+}
+</script>
+</body>
+</html>
